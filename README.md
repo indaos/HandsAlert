@@ -9,4 +9,4 @@ But this also creates a problem, because WatchOS only allows you to use one work
 
 There is also a problem with battery consumption. 
 Obviously, an app that constantly reads the accelerometer and uses the prediction process once per second
-(however, this process should not be heavy) consumes significant battery life.
+(however, this process should not be heavy) consumes relatively significant battery life.
