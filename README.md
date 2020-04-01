@@ -1,5 +1,4 @@
-# HandsAlert
-# This Apple Watch app detects when you start washing your hands and warns you if you stop too soon.
+### This Apple Watch app detects when you start washing your hands and warns you if you stop too soon.
 
 Detection of hand washing in the background and notification if the process is too short
 
