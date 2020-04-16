@@ -17,7 +17,7 @@ There are a few features that I would like to draw attention to
 
 1. In order for the app to work in the background all the time, it should use HKWorkoutSession
 <pre>
-			self.session = try HKWorkoutSession( healthStore: self.healthStore, configuration: configuration)
+  self.session = try HKWorkoutSession( healthStore: self.healthStore, configuration: configuration)
 </pre>
 here you should keep in mind that immediately after starting the session you need to pause it
 <pre>
@@ -44,7 +44,7 @@ Raising the hand (depending on body position and speed) lasts 0.5-1 seconds (app
 4 The application has two buttons the first one allows you to collect information from sensors and transmit it to the phone which automatically saves it to a file along with the activity type selected on the phone and another will test CoreML model .
 
 <p align="center">
-  <img src="phone_1.png"  width="240" height="300" >
+  <img src="phone_1.jpeg"  width="240" height="300" >
   <img src="watch_1.png"  width="240" height="240" >
   <img src="watch_2.png"  width="240" height="240" >
 </p>
