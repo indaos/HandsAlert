@@ -1,7 +1,351 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:../model"
+      name = "model">
+      <FileRef
+         location = "group:motion_322.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_336.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_295.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_281.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_280.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_337.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_323.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_335.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_321.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_282.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_296.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_297.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_283.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_308.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_334.csv">
+      </FileRef>
+      <Group
+         location = "group:ham.model"
+         name = "ham.model">
+         <FileRef
+            location = "group:m_5d86e208339462fe.0000">
+         </FileRef>
+         <FileRef
+            location = "group:m_b368b1bf7f317679.sidx">
+         </FileRef>
+         <FileRef
+            location = "group:m_b368b1bf7f317679.frame_idx">
+         </FileRef>
+         <FileRef
+            location = "group:m_4e37eed65580309b.0000">
+         </FileRef>
+         <FileRef
+            location = "group:m_5d86e208339462fe.frame_idx">
+         </FileRef>
+         <FileRef
+            location = "group:m_ed182909eb0aac36.frame_idx">
+         </FileRef>
+         <FileRef
+            location = "group:m_4e37eed65580309b.frame_idx">
+         </FileRef>
+         <FileRef
+            location = "group:m_c1d5a7b011293261.sidx">
+         </FileRef>
+         <FileRef
+            location = "group:dir_archive.ini">
+         </FileRef>
+         <FileRef
+            location = "group:m_ef15772c05973b04.sidx">
+         </FileRef>
+         <FileRef
+            location = "group:m_ed182909eb0aac36.sidx">
+         </FileRef>
+         <FileRef
+            location = "group:m_ef15772c05973b04.frame_idx">
+         </FileRef>
+         <FileRef
+            location = "group:m_ef15772c05973b04.0000">
+         </FileRef>
+         <FileRef
+            location = "group:m_ed182909eb0aac36.0000">
+         </FileRef>
+         <FileRef
+            location = "group:m_c1d5a7b011293261.0000">
+         </FileRef>
+         <FileRef
+            location = "group:m_5d86e208339462fe.sidx">
+         </FileRef>
+         <FileRef
+            location = "group:m_b368b1bf7f317679.0000">
+         </FileRef>
+         <FileRef
+            location = "group:m_4e37eed65580309b.sidx">
+         </FileRef>
+         <FileRef
+            location = "group:objects.bin">
+         </FileRef>
+         <FileRef
+            location = "group:m_c1d5a7b011293261.frame_idx">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:motion_318.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_330.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_324.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_278.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_293.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_292.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_279.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_325.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_331.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_319.csv">
+      </FileRef>
+      <FileRef
+         location = "group:HandsAlertActivityClassifier.mlmodel">
+      </FileRef>
+      <Group
+         location = "group:test"
+         name = "test">
+         <FileRef
+            location = "group:motion_322.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_336.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_337.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_323.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_335.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_321.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_334.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_330.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_324.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_325.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_331.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_327.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_333.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_332.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_326.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_341.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_340.csv">
+         </FileRef>
+         <Group
+            location = "group:ham.sframe"
+            name = "ham.sframe">
+            <FileRef
+               location = "group:m_ad9b4f5ac5de5b64.0000">
+            </FileRef>
+            <FileRef
+               location = "group:dir_archive.ini">
+            </FileRef>
+            <FileRef
+               location = "group:m_ad9b4f5ac5de5b64.sidx">
+            </FileRef>
+            <FileRef
+               location = "group:objects.bin">
+            </FileRef>
+            <FileRef
+               location = "group:m_ad9b4f5ac5de5b64.frame_idx">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:motion_328.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_329.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_339.csv">
+         </FileRef>
+         <FileRef
+            location = "group:motion_338.csv">
+         </FileRef>
+         <FileRef
+            location = "group:convert_csv_to_sframe.py">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:motion_327.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_333.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_290.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_291.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_332.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_326.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_341.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_340.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_356.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_357.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_359.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_358.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_317.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_277.csv">
+      </FileRef>
+      <Group
+         location = "group:ham.sframe"
+         name = "ham.sframe">
+         <FileRef
+            location = "group:m_f832884fc4193469.frame_idx">
+         </FileRef>
+         <FileRef
+            location = "group:m_f832884fc4193469.sidx">
+         </FileRef>
+         <FileRef
+            location = "group:dir_archive.ini">
+         </FileRef>
+         <FileRef
+            location = "group:m_f832884fc4193469.0000">
+         </FileRef>
+         <FileRef
+            location = "group:objects.bin">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:motion_288.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_289.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_276.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_316.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_302.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_314.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_328.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_275.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_329.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_301.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_339.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_305.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_338.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_306.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_313.csv">
+      </FileRef>
+      <FileRef
+         location = "group:motion_307.csv">
+      </FileRef>
+   </Group>
    <FileRef
-      location = "self:HandsAlert.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
