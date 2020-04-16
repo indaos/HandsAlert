@@ -1,4 +1,4 @@
-### This Apple Watch app detects when you start washing your hands and warns you if you stop too soon.
+### This Apple Watch app detects when you start washing your hands and warns you if you stop too soon or when you raise your hand to your face.
 
 Detection of hand washing in the background and notification if the process is too short. CoreML and the trained NN model 
 are used to detect this process. The app can also collect data from the accelerometer and gyroscope for this training. 
