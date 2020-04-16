@@ -15,11 +15,7 @@ class ViewController: UIViewController, WCSessionDelegate {
 
     @IBOutlet weak var progressAX: UIProgressView!
     @IBOutlet weak var progressAY: UIProgressView!
-    @IBOutlet weak var progressAZ: UIProgressView!
-    @IBOutlet weak var progressRX: UIProgressView!
-    @IBOutlet weak var progressRY: UIProgressView!
-    @IBOutlet weak var progressRZ: UIProgressView!
-    @IBOutlet weak var testLabel: UILabel!
+    @IBOutlet weak var secsLabel: UILabel!
     @IBOutlet weak var anumberLabel: UILabel!
     @IBOutlet weak var anumberStepper: UIStepper!
 
@@ -29,7 +25,7 @@ class ViewController: UIViewController, WCSessionDelegate {
     let accGain : Double = 1.0
     let rotGain : Double = 0.1
     let wrWindow : Int = 500
-    
+    var seconds = 0
     var msgsBuffer:[( x: Double,y: Double,z: Double,rx: Double,ry: Double,rz: Double)] = []
     
     
@@ -48,38 +44,48 @@ class ViewController: UIViewController, WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         
         let cursession : Int = message["StopSession"] as? Int ?? -1
+        let session : Double = message["S"] as? Double ?? 0.0
+
+        let today = Date()
+        let formatter1 = DateFormatter()
+        formatter1.dateFormat = "HH:mm:ss:SS"
+        print(formatter1.string(from: today)+"  message:"+String(cursession)+","+String(session))
+        
+        DispatchQueue.main.async {
+              self.progressAX.progress = Float(abs(0))
+              self.progressAY.progress = Float(0)
+          }
         
         if cursession != -1 {
-            writeCSV(sess: cursession,from: msgsBuffer)
+          //  writeCSV(sess: cursession,from: msgsBuffer)
+            seconds = 0
             msgsBuffer=[]
             return
         }
         
-        let session : Double = message["S"] as? Double ?? 0.0
-        
-        let accX : Double = message["X"] as? Double ?? 0.0
-        let accY : Double = message["Y"] as? Double ?? 0.0
-        let accZ : Double = message["Z"] as? Double ?? 0.0
-        let rotX : Double = message["RX"] as? Double ?? 0.0
-        let rotY : Double = message["RY"] as? Double ?? 0.0
-        let rotZ : Double = message["RZ"] as? Double ?? 0.0
-        
-        
-        msgsBuffer += [(x: accX,y: accY,z: accZ,rx: rotX,ry:rotY,rz: rotZ)]
+       // let session : Double = message["S"] as? Double ?? 0.0
+        for index in 0...49 {
+            let accX : Double = message["X"+String(index)] as? Double ?? 0.0
+            let accY : Double = message["Y"+String(index)] as? Double ?? 0.0
+            let accZ : Double = message["Z"+String(index)] as? Double ?? 0.0
+            let rotX : Double = message["RX"+String(index)] as? Double ?? 0.0
+            let rotY : Double = message["RY"+String(index)] as? Double ?? 0.0
+            let rotZ : Double = message["RZ"+String(index)] as? Double ?? 0.0
+            msgsBuffer += [(x: accX,y: accY,z: accZ,rx: rotX,ry:rotY,rz: rotZ)]
+        }
+        seconds+=1
+        DispatchQueue.main.async {
+            self.progressAX.progress = Float(self.msgsBuffer.count)/500
+            self.secsLabel.text = ""+String(self.seconds)+" seconds"
+        }
         
         if msgsBuffer.count == wrWindow {
             writeCSV(sess:  Int(session),from: msgsBuffer)
             msgsBuffer=[]
-        }
-        
-        DispatchQueue.main.async {
-            self.testLabel.text = (String(self.msgsBuffer.count))
-            self.progressAX.progress = Float(abs(accX * self.accGain))
-            self.progressAY.progress = Float(abs(accY * self.accGain))
-            self.progressAZ.progress = Float(abs(accZ * self.accGain))
-            self.progressRX.progress = Float(abs(rotX * self.rotGain))
-            self.progressRY.progress = Float(abs(rotY * self.rotGain))
-            self.progressRZ.progress = Float(abs(rotZ * self.rotGain))
+            DispatchQueue.main.async {
+                self.progressAY.progress = Float(100)
+                self.progressAX.progress = Float(0)
+            }
         }
     }
         
@@ -122,7 +128,13 @@ class ViewController: UIViewController, WCSessionDelegate {
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
-        anumberLabel.text = Int(sender.value).description
+        switch Int(sender.value) {
+        case 0:  anumberLabel.text="None"
+        case 1:  anumberLabel.text="Touching Face"
+        case 2:  anumberLabel.text="Washing Hands"
+        default:
+            anumberLabel.text="?"
+        }
         currentActivity = Int(sender.value).description
     }
     

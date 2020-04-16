@@ -9,25 +9,20 @@ class AccTupleBuffer {
 
     init(size: Int) {
         self.size = size
-        self.buffer = [MotionData](repeating: (0,0,0,0,0,0), count: self.size)
+        self.buffer = []
     }
     
     func addSample(_ sample: (x: Double,y: Double ,z: Double,rx: Double,ry: Double,rz: Double) ) {
-        buffer.insert(sample, at:0)
-        if buffer.count > size {
-            buffer.removeLast()
-        }
+        buffer.append(sample)
     }
     
     func reset() {
-        buffer.removeAll(keepingCapacity: true)
+        buffer=[]
     }
     
     func isFull() -> Bool {
         return size == buffer.count
     }
-    
-
 }
 
 

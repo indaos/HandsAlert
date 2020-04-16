@@ -19,7 +19,6 @@ class InterfaceController: WKInterfaceController,WCSessionDelegate {
     
     @IBOutlet var  sessionButton:WKInterfaceButton?
     @IBOutlet var  testButton:WKInterfaceButton?
-    @IBOutlet var  sessionLabel:WKInterfaceLabel?
     @IBOutlet var  movingLabel:WKInterfaceLabel?
 
     var session : HKWorkoutSession?
@@ -30,8 +29,8 @@ class InterfaceController: WKInterfaceController,WCSessionDelegate {
     var currentSession : Int = 0
     var  isPrediction = false
     
-    static let pWindowSize = 50
-    static let updateInterval = 0.02
+    static let pWindowSize = 80
+    static let updateInterval = 0.0125
     static let stateInLength = 400
     
     var currentIndxPWindow = 0
@@ -46,9 +45,9 @@ class InterfaceController: WKInterfaceController,WCSessionDelegate {
     
     var stateOutput = try! MLMultiArray(shape:[stateInLength as NSNumber], dataType: MLMultiArrayDataType.double)
     
-    let modelBuffer = AccTupleBuffer(size: 50)
-    
-    var classifier: HandsAlertActivityClassifier = HandsAlertActivityClassifier()
+    let modelBuffer = AccTupleBuffer(size: pWindowSize)
+
+    var classifier: HandsAlertActivityClassifier = HandsAlertActivityClassifier() 
 
     let activityMinSession = 20000.0
     let inactivityInterval = 2000.0
@@ -79,57 +78,76 @@ class InterfaceController: WKInterfaceController,WCSessionDelegate {
     func currentTimeInMiliseconds() -> Double {
         return Double(Date().timeIntervalSince1970 * 1000)
     }
-    
-    var beginningOfCurrSession = 0.0
+        
     
     func performModelPrediction ()  {
         DispatchQueue.main.async {
-            let modelPrediction = try! self.classifier.prediction(acc_x: self.aX,acc_y: self.aY,acc_z: self.aZ,
-                                                             gyro_x: self.gX,gyro_y: self.gY, gyro_z: self.gZ,
+            let modelPrediction = try! self.classifier.prediction(ax: self.aX,ay: self.aY,az: self.aZ,
+                                                                  gx: self.gX,gy: self.gY, gz: self.gZ,
                                                              stateIn: self.stateOutput)
+            let a0 = modelPrediction.actProbability["0"] ?? 0
+            let a1 = modelPrediction.actProbability["1"] ?? 0
+            let a2 = modelPrediction.actProbability["2"] ?? 0
             self.stateOutput = modelPrediction.stateOut
-            let a0 = modelPrediction.activityProbability["0"] ?? 0
-            let a1 = modelPrediction.activityProbability["1"] ?? 0
-            let a2 = modelPrediction.activityProbability["2"] ?? 0
-            print(">>"+modelPrediction.activity+","+String(a0)+","+String(a1)+","+String(a2))
-   
-            if  modelPrediction.activity == "2"  && (!a2.isNaN && a2 > 0.6 ) {
-                if self.beginningOfCurrSession == 0 {
-                    WKInterfaceDevice().play(.notification)
-                    self.beginningOfCurrSession=self.currentTimeInMiliseconds()
-                } else if self.currentTimeInMiliseconds() - self.beginningOfCurrSession > self.activityMinSession {
-                    WKInterfaceDevice().play(.notification)
-                    self.beginningOfCurrSession=0
-                }
-            } else if self.beginningOfCurrSession > 0 {
-                let inactivity = self.currentTimeInMiliseconds() - self.beginningOfCurrSession
-                if inactivity > self.inactivityInterval {
-                    WKInterfaceDevice().play(.failure)
-                    self.beginningOfCurrSession+=inactivity
-                }
+            var debStr=""
+            switch(modelPrediction.act) {
+            case "0":debStr=modelPrediction.act+","+String(a0)
+            case "1":debStr=modelPrediction.act+","+String(a1)
+            case "2":debStr=modelPrediction.act+","+String(a2)
+            default:
+                debStr="?"
             }
+            print(debStr)
+            self.movingLabel?.setText(debStr)
         }
     }
     
-    var movingDirection=false
+    
+    func shiftData() {
+        for i in 1..<InterfaceController.pWindowSize {
+            aX[i-1]=aX[i]
+            aY[i-1]=aY[i]
+            aZ[i-1]=aZ[i]
+            gX[i-1]=gX[i]
+            gY[i-1]=gY[i]
+            gZ[i-1]=gZ[i]
+        }
+    }
+    
+    var counter=0
     
     func addAccelSampleToDataArray (accelSample: CMDeviceMotion) {
         
         let acceleration : CMAcceleration = accelSample.userAcceleration
         let rotationRate : CMRotationRate = accelSample.rotationRate
-        aX[[currentIndxPWindow] as [NSNumber]] = acceleration.x as NSNumber
-        aY[[currentIndxPWindow] as [NSNumber]] = acceleration.y as NSNumber
-        aZ[[currentIndxPWindow] as [NSNumber]] = acceleration.z as NSNumber
-        gX[[currentIndxPWindow] as [NSNumber]] = rotationRate.x as NSNumber
-        gY[[currentIndxPWindow] as [NSNumber]] = rotationRate.y as NSNumber
-        gZ[[currentIndxPWindow] as [NSNumber]] = rotationRate.z as NSNumber
-        currentIndxPWindow += 1
         
-        if ( currentIndxPWindow == InterfaceController.pWindowSize) {
-            performModelPrediction()
-            currentIndxPWindow = 0
+        if  currentIndxPWindow == InterfaceController.pWindowSize {
+            shiftData()
+            aX[[currentIndxPWindow-1] as [NSNumber]] = acceleration.x as NSNumber
+            aY[[currentIndxPWindow-1] as [NSNumber]] = acceleration.y as NSNumber
+            aZ[[currentIndxPWindow-1] as [NSNumber]] = acceleration.z as NSNumber
+            gX[[currentIndxPWindow-1] as [NSNumber]] = rotationRate.x as NSNumber
+            gY[[currentIndxPWindow-1] as [NSNumber]] = rotationRate.y as NSNumber
+            gZ[[currentIndxPWindow-1] as [NSNumber]] = rotationRate.z as NSNumber
+        } else {
+            aX[[currentIndxPWindow] as [NSNumber]] = acceleration.x as NSNumber
+            aY[[currentIndxPWindow] as [NSNumber]] = acceleration.y as NSNumber
+            aZ[[currentIndxPWindow] as [NSNumber]] = acceleration.z as NSNumber
+            gX[[currentIndxPWindow] as [NSNumber]] = rotationRate.x as NSNumber
+            gY[[currentIndxPWindow] as [NSNumber]] = rotationRate.y as NSNumber
+            gZ[[currentIndxPWindow] as [NSNumber]] = rotationRate.z as NSNumber
         }
         
+        if ( currentIndxPWindow == InterfaceController.pWindowSize) {
+            if counter == 20 {
+                performModelPrediction()
+                counter=0
+            } else {
+                counter+=1
+            }
+        } else {
+            currentIndxPWindow += 1
+        }
     }
     
     private func startMotionUpdates() {
@@ -146,20 +164,21 @@ class InterfaceController: WKInterfaceController,WCSessionDelegate {
                 }
                 
                 if self?.modelBuffer.isFull() ?? false {
+                    var c=0
+                    var messageDict:[String:Any]=[:]
+                    messageDict["S"] = Double(self?.currentSession ?? 0)
                     self!.modelBuffer.buffer.forEach { e in
-                        let messageDict : [String : Double] = [
-                            "S" : Double(self?.currentSession ?? 0),
-                            "X" : e.x,
-                            "Y" : e.y,
-                            "Z" : e.z,
-                            "RX" : e.rx,
-                            "RY" : e.ry,
-                            "RZ" : e.rz
-                        ]
-                        self?.connectivitySession?.sendMessage(messageDict, replyHandler: nil , errorHandler: { (error) in
-                            print("message error \(error)")
-                        })
+                        messageDict["X"+String(c)] = e.x
+                        messageDict["Y"+String(c)] = e.y
+                        messageDict["Z"+String(c)] = e.z
+                        messageDict["RX"+String(c)] = e.rx
+                        messageDict["RY"+String(c)] = e.ry
+                        messageDict["RZ"+String(c)] = e.rz
+                        c+=1
                     }
+                    self?.connectivitySession?.sendMessage(messageDict, replyHandler: nil , errorHandler: { (error) in
+                        print("message error \(error)")
+                    })
                     self?.modelBuffer.reset();
                 } else {
                     self?.modelBuffer.addSample((x: acceleration.x, y: acceleration.y, z: acceleration.z,
@@ -186,20 +205,18 @@ class InterfaceController: WKInterfaceController,WCSessionDelegate {
         
         if self.session != nil {
             self.testButton?.setEnabled(false)
-            
-            let messageDict : [String : Int] = [
-                "StopSession" : self.currentSession
-            ]
-            self.connectivitySession?.sendMessage(messageDict, replyHandler: nil , errorHandler: { (error) in
-                print("message error \(error)")
-            })
-            
             self.motionManager.stopDeviceMotionUpdates()
             self.session?.end()
             self.session = nil
             self.sessionButton?.setTitle("Start L-Session")
+            self.modelBuffer.reset();
             WKInterfaceDevice().play(.notification)
-            
+            let messageDict : [String : Int] = [
+                     "StopSession" : self.currentSession
+                 ]
+             self.connectivitySession?.sendMessage(messageDict, replyHandler: nil , errorHandler: { (error) in
+                 print("message error \(error)")
+             })
         } else {
             var p=readProp()
             currentSession=p["Session"] ?? 1
@@ -207,22 +224,25 @@ class InterfaceController: WKInterfaceController,WCSessionDelegate {
             saveProps(prop: p)
             
             let configuration = HKWorkoutConfiguration()
-            configuration.activityType = .mixedCardio
-            configuration.locationType = .indoor
+            configuration.activityType = .other
+            configuration.locationType = .unknown
             do {
-                self.session = try HKWorkoutSession(healthStore: self.healthStore, configuration: configuration)
+                self.session = try HKWorkoutSession( healthStore: self.healthStore,configuration: configuration)
             } catch {
                 dismiss()
                 return
             }
+  
+            self.session?.startActivity(with: Date())
             
+            self.testButton?.setEnabled(true)
             self.sessionButton?.setTitle("Stop Session")
             WKInterfaceDevice().play(.notification)
-            self.session?.startActivity(with: Date())
-            self.testButton?.setEnabled(true)
             
             startMotionUpdates()
             
+            self.session?.pause()
+
         }
     }
     

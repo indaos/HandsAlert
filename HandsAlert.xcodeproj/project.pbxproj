@@ -23,7 +23,7 @@
 		32E268132424F6D40093A451 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32E268122424F6D40093A451 /* Assets.xcassets */; };
 		32E2682624265DC80093A451 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E2682524265DC80093A451 /* HealthKit.framework */; };
 		32E26837242902B40093A451 /* AccTupleBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E26836242902B40093A451 /* AccTupleBuffer.swift */; };
-		32E26843242B81140093A451 /* HandsAlertActivityClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 32E26842242B81140093A451 /* HandsAlertActivityClassifier.mlmodel */; };
+		32F1D1282447087A0009B4C9 /* HandsAlertActivityClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 32F1D1272447087A0009B4C9 /* HandsAlertActivityClassifier.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,7 +91,7 @@
 		32E2682324265DC80093A451 /* HandsAlert WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HandsAlert WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		32E2682524265DC80093A451 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.1.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		32E26836242902B40093A451 /* AccTupleBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccTupleBuffer.swift; sourceTree = "<group>"; };
-		32E26842242B81140093A451 /* HandsAlertActivityClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = HandsAlertActivityClassifier.mlmodel; path = ../turi2/HandsAlertActivityClassifier.mlmodel; sourceTree = "<group>"; };
+		32F1D1272447087A0009B4C9 /* HandsAlertActivityClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = HandsAlertActivityClassifier.mlmodel; path = Turi/HandsAlertActivityClassifier.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +176,7 @@
 		32E2682424265DC80093A451 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				32E26842242B81140093A451 /* HandsAlertActivityClassifier.mlmodel */,
+				32F1D1272447087A0009B4C9 /* HandsAlertActivityClassifier.mlmodel */,
 				32E2682524265DC80093A451 /* HealthKit.framework */,
 			);
 			name = Frameworks;
@@ -325,8 +325,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				32E268112424F6D40093A451 /* NotificationController.swift in Sources */,
+				32F1D1282447087A0009B4C9 /* HandsAlertActivityClassifier.mlmodel in Sources */,
 				32E26837242902B40093A451 /* AccTupleBuffer.swift in Sources */,
-				32E26843242B81140093A451 /* HandsAlertActivityClassifier.mlmodel in Sources */,
 				32E2680F2424F6D40093A451 /* ExtensionDelegate.swift in Sources */,
 				32E2680D2424F6D40093A451 /* InterfaceController.swift in Sources */,
 			);
